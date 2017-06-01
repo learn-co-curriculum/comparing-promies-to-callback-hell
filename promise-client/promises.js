@@ -38,12 +38,10 @@ let thePromisedWayWithWhen = () => {
   let p8 = $.get(`${url}/8`)
   let p9 = $.get(`${url}/9`)
   let p10 = $.get(`${url}/10`)
-  debugger
-  $.when(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10)
-  .done(function(r1,r2,r3,r4,r5,r6,r7,r8,r9,r10) {
-    let args = Array.from(arguments);
-    args.forEach( response => {
-      let html = `<span style="font-size:5rem;margin-left:30px;">${response[2].responseJSON.number}</span>`;
+  Promise.all([p1,p2,p3,p4,p5,p6,p7,p8,p9,p10])
+  .then( responses => {
+    responses.forEach( response => {
+      let html = `<span style="font-size:5rem;margin-left:30px;">${response.number}</span>`;
       $("#counter-container-with-promises-and-when").append(html)})
   });
 }
